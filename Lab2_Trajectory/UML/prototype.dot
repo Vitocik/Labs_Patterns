@@ -1,0 +1,35 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", pad="0.25", nodesep="0.5", ranksep="0.8"];
+  node [shape=plain, fontname="DejaVu Sans"];
+  edge [color="#555555", penwidth=1.2, arrowsize=0.7, fontname="DejaVu Sans", fontsize=9];
+
+  proto [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#E8EEF7"><B>&lt;&lt;interface&gt;&gt; IPrototype&lt;T&gt;</B></TD></TR>
+      <TR><TD ALIGN="LEFT">+ Clone(): T</TD></TR>
+    </TABLE>>];
+
+  scenario [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#EAF4EA"><B>TrajectoryScenario</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Name : string<BR/>X0, Y0 : double<BR/>InitialSpeed : double<BR/>LaunchAngleDeg : double<BR/>Gravity : double<BR/>TimeStep : double<BR/>WindSpeed : double</TD></TR>
+      <TR><TD ALIGN="LEFT">+ Clone(): TrajectoryScenario</TD></TR>
+    </TABLE>>];
+
+  registry [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#F7F1E6"><B>ScenarioPrototypeRegistry</B></TD></TR>
+      <TR><TD ALIGN="LEFT">- _prototypes : Dictionary&lt;string, TrajectoryScenario&gt;<BR/>+ Register(key, prototype)<BR/>+ Create(key): TrajectoryScenario</TD></TR>
+    </TABLE>>];
+
+  client [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#FBE8E8"><B>Program</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Клиент: получает базовый сценарий,<BR/>клонирует и изменяет его</TD></TR>
+    </TABLE>>];
+
+  proto -> scenario [label="реализуется", arrowhead=empty];
+  registry -> scenario [label="хранит копии", arrowhead=diamond];
+  registry -> client [label="возвращает клон"];
+  client -> scenario [label="Clone()"];
+}

@@ -1,0 +1,75 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", pad="0.25", nodesep="0.45", ranksep="0.75"];
+  node [shape=plain, fontname="DejaVu Sans"];
+  edge [color="#555555", penwidth=1.2, arrowsize=0.7, fontname="DejaVu Sans", fontsize=9];
+
+  factory [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#E8EEF7"><B>&lt;&lt;interface&gt;&gt; IMotionModelFactory</B></TD></TR>
+      <TR><TD ALIGN="LEFT">+ CreateCalculator(): ITrajectoryCalculator<BR/>+ CreateFormatter(): ITrajectoryFormatter</TD></TR>
+    </TABLE>>];
+
+  ideal [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#EAF4EA"><B>IdealMotionFactory</B></TD></TR>
+      <TR><TD ALIGN="LEFT">+ CreateCalculator()<BR/>+ CreateFormatter()</TD></TR>
+    </TABLE>>];
+
+  wind [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#EAF4EA"><B>WindMotionFactory</B></TD></TR>
+      <TR><TD ALIGN="LEFT">+ CreateCalculator()<BR/>+ CreateFormatter()</TD></TR>
+    </TABLE>>];
+
+  calc [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#E8EEF7"><B>&lt;&lt;interface&gt;&gt; ITrajectoryCalculator</B></TD></TR>
+      <TR><TD ALIGN="LEFT">+ Calculate(TrajectoryScenario): TrajectoryResult</TD></TR>
+    </TABLE>>];
+  idealcalc [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#F7F1E6"><B>IdealTrajectoryCalculator</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Идеальная баллистическая модель</TD></TR>
+    </TABLE>>];
+  windcalc [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#F7F1E6"><B>WindTrajectoryCalculator</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Попутный / встречный ветер</TD></TR>
+    </TABLE>>];
+
+  fmt [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#E8EEF7"><B>&lt;&lt;interface&gt;&gt; ITrajectoryFormatter</B></TD></TR>
+      <TR><TD ALIGN="LEFT">+ Format(scenario, result): string</TD></TR>
+    </TABLE>>];
+  idealfmt [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#F7F1E6"><B>IdealTrajectoryFormatter</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Формат результата без ветра</TD></TR>
+    </TABLE>>];
+  windfmt [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#F7F1E6"><B>WindTrajectoryFormatter</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Формат результата с ветром</TD></TR>
+    </TABLE>>];
+
+  client [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#FBE8E8"><B>Program</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Client: выбирает фабрику<BR/>и работает только с интерфейсами</TD></TR>
+    </TABLE>>];
+
+  ideal -> factory [arrowhead=empty];
+  wind -> factory [arrowhead=empty];
+  ideal -> idealcalc [style=dashed, arrowhead=none, label="создаёт"];
+  ideal -> idealfmt [style=dashed, arrowhead=none, label="создаёт"];
+  wind -> windcalc [style=dashed, arrowhead=none, label="создаёт"];
+  wind -> windfmt [style=dashed, arrowhead=none, label="создаёт"];
+  idealcalc -> calc [arrowhead=empty];
+  windcalc -> calc [arrowhead=empty];
+  idealfmt -> fmt [arrowhead=empty];
+  windfmt -> fmt [arrowhead=empty];
+  client -> factory [label="использует"];
+  client -> calc [style=dashed, label="запускает расчёт"];
+  client -> fmt [style=dashed, label="получает текст"];
+}
