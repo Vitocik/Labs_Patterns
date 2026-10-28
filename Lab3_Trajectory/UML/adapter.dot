@@ -1,0 +1,55 @@
+digraph AdapterPattern {
+  graph [rankdir=LR, bgcolor="white", pad="0.22", nodesep="0.52", ranksep="0.72", splines=ortho, fontname="Liberation Sans", fontsize=16, labelloc=t, label="Паттерн «Адаптер» — подключение старого расчётного компонента"];
+  node [shape=plain, fontname="Liberation Sans", fontsize=10.5];
+  edge [fontname="Liberation Sans", fontsize=9.5, color="#4D4D4D", penwidth=1.2, arrowsize=0.8];
+
+  Simulator [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#3F3F3F">
+      <TR><TD BGCOLOR="#F8E6E7"><B>TrajectorySimulator</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Клиент Bridge работает<br/>только с IFlightModel</TD></TR>
+    </TABLE>>];
+
+  IFlightModel [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#333333">
+      <TR><TD BGCOLOR="#E5ECF7"><B>&lt;&lt;interface&gt;&gt; IFlightModel</B></TD></TR>
+      <TR><TD ALIGN="LEFT">+ Calculate(TrajectoryParameters):<BR/>  TrajectoryResult</TD></TR>
+    </TABLE>>];
+
+  Adapter [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#333333">
+      <TR><TD BGCOLOR="#E9F2E8"><B>LegacyTrajectoryAdapter</B></TD></TR>
+      <TR><TD ALIGN="LEFT">+ Calculate(parameters)</TD></TR>
+      <TR><TD ALIGN="LEFT">Градусы → радианы;<BR/>LegacyFlightData → TrajectoryResult</TD></TR>
+    </TABLE>>];
+
+  LegacyInterface [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#333333">
+      <TR><TD BGCOLOR="#E5ECF7"><B>&lt;&lt;interface&gt;&gt; ILegacyTrajectoryEngine</B></TD></TR>
+      <TR><TD ALIGN="LEFT">+ Solve(..., angleRadians, ...):<BR/>  LegacyFlightData</TD></TR>
+    </TABLE>>];
+
+  LegacyEngine [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#333333">
+      <TR><TD BGCOLOR="#F7F0E4"><B>LegacyTrajectoryEngine</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Старый API с углом в радианах<br/>и собственным форматом результата</TD></TR>
+    </TABLE>>];
+
+  Params [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#333333">
+      <TR><TD BGCOLOR="#F7F0E4"><B>TrajectoryParameters</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Угол в градусах,<BR/>единые имена параметров</TD></TR>
+    </TABLE>>];
+
+  Result [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#333333">
+      <TR><TD BGCOLOR="#F7F0E4"><B>TrajectoryResult</B></TD></TR>
+      <TR><TD ALIGN="LEFT">FlightTime, MaximumHeight,<BR/>Range, Points</TD></TR>
+    </TABLE>>];
+
+  Simulator -> IFlightModel [label="зависит от интерфейса"];
+  Adapter -> IFlightModel [style=dashed, arrowhead=empty];
+  Adapter -> LegacyInterface [dir=both, arrowtail=diamond, arrowhead=vee, label="делегирует вызов"];
+  LegacyEngine -> LegacyInterface [style=dashed, arrowhead=empty];
+  Params -> Adapter [label="вход"];
+  Adapter -> Result [label="преобразует результат"];
+}
