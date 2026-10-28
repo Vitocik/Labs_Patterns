@@ -1,0 +1,12 @@
+digraph Composite {
+graph [bgcolor="white", pad="0.18", nodesep="0.32", ranksep="0.48", splines=ortho];
+node [shape=plain, fontname="DejaVu Sans", fontsize=10];
+edge [fontname="DejaVu Sans", fontsize=9, color="#333333", arrowsize=0.75];
+label="Паттерн «Компоновщик» (Composite)"; labelloc=t; fontsize=14; fontname="DejaVu Sans";
+IT [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>&lt;&lt;Component&gt;&gt; ITrajectoryComponent</B></TD></TR><TR><TD ALIGN="LEFT">+ Name: string</TD></TR><TR><TD ALIGN="LEFT">+ Calculate(): IReadOnlyList&lt;TrajectoryResult&gt;</TD></TR><TR><TD ALIGN="LEFT">+ Display(indent)</TD></TR></TABLE>>];
+Leaf [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#F4F4F4"><B>&lt;&lt;Leaf&gt;&gt; TrajectoryLeaf</B></TD></TR><TR><TD ALIGN="LEFT">- scenario: TrajectoryScenario</TD></TR><TR><TD ALIGN="LEFT">+ Calculate()</TD></TR><TR><TD ALIGN="LEFT">+ Display(indent)</TD></TR></TABLE>>];
+Group [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#F4F4F4"><B>&lt;&lt;Composite&gt;&gt; TrajectoryGroup</B></TD></TR><TR><TD ALIGN="LEFT">- children: List&lt;ITrajectoryComponent&gt;</TD></TR><TR><TD ALIGN="LEFT">+ Add(child)</TD></TR><TR><TD ALIGN="LEFT">+ Remove(child)</TD></TR><TR><TD ALIGN="LEFT">+ Calculate()</TD></TR><TR><TD ALIGN="LEFT">+ Display(indent)</TD></TR></TABLE>>];
+Program [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>Program (Client)</B></TD></TR><TR><TD ALIGN="LEFT">Создаёт листья и вложенные группы</TD></TR><TR><TD ALIGN="LEFT">Вызывает операции через общий интерфейс</TD></TR></TABLE>>];
+Leaf -> IT [arrowhead=empty, label="реализует"]; Group -> IT [arrowhead=empty, label="реализует"]; Group -> IT [arrowhead=odiamond, label="содержит 0..*", constraint=false]; Program -> IT [style=dashed, label="использует"];
+{rank=same; Leaf; Group;}
+}

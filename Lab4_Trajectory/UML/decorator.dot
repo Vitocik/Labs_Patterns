@@ -1,0 +1,13 @@
+digraph Decorator {
+graph [bgcolor="white", pad="0.18", nodesep="0.32", ranksep="0.48", splines=ortho];
+node [shape=plain, fontname="DejaVu Sans", fontsize=10];
+edge [fontname="DejaVu Sans", fontsize=9, color="#333333", arrowsize=0.75];
+label="Паттерн «Декоратор» (Decorator)"; labelloc=t; fontsize=14; fontname="DejaVu Sans";
+IT [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>&lt;&lt;Component&gt;&gt; ITrajectoryComponent</B></TD></TR><TR><TD ALIGN="LEFT">+ Calculate()</TD></TR><TR><TD ALIGN="LEFT">+ Display(indent)</TD></TR></TABLE>>];
+Base [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>&lt;&lt;Decorator&gt;&gt; TrajectoryComponentDecorator</B></TD></TR><TR><TD ALIGN="LEFT"># Inner: ITrajectoryComponent</TD></TR><TR><TD ALIGN="LEFT">+ Calculate() → Inner</TD></TR><TR><TD ALIGN="LEFT">+ Display() + дополнительное поведение</TD></TR></TABLE>>];
+Stats [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#F4F4F4"><B>ScenarioStatisticsDecorator</B></TD></TR><TR><TD ALIGN="LEFT">+ Добавляет сводную статистику</TD></TR><TR><TD ALIGN="LEFT">+ Число сценариев и максимум дальности</TD></TR></TABLE>>];
+Coords [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#F4F4F4"><B>CoordinateSamplesDecorator</B></TD></TR><TR><TD ALIGN="LEFT">+ Добавляет таблицу координат</TD></TR><TR><TD ALIGN="LEFT">+ Не меняет физический расчёт</TD></TR></TABLE>>];
+LeafGroup [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#F4F4F4"><B>TrajectoryLeaf / TrajectoryGroup</B></TD></TR><TR><TD ALIGN="LEFT">Базовые объекты, которые можно оборачивать</TD></TR></TABLE>>];
+Base -> IT [arrowhead=empty, label="реализует"]; Stats -> Base [arrowhead=empty, label="наследует"]; Coords -> Base [arrowhead=empty, label="наследует"]; Base -> IT [dir=both, arrowtail=odiamond, arrowhead=none, label="оборачивает компонент", constraint=false]; LeafGroup -> IT [arrowhead=empty, label="реализуют компонент"];
+{rank=same; Stats; Coords;}
+}
