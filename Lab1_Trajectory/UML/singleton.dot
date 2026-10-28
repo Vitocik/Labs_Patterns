@@ -1,0 +1,41 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", pad=0.25, nodesep=0.65, ranksep=0.8, splines=ortho];
+  node [fontname="DejaVu Sans", fontsize=11, color="#3a3a3a"];
+  edge [fontname="DejaVu Sans", fontsize=9, color="#4b4b4b", arrowsize=0.7];
+
+  settings [shape=plain, label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#333333">
+      <TR><TD BGCOLOR="#fff5cf"><FONT POINT-SIZE="10">«Singleton»</FONT><BR/><B>SimulationSettings</B></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#fff5cf">- InstanceHolder : Lazy&lt;SimulationSettings&gt;<BR/>- DefaultGravity : double<BR/>- DefaultInitialSpeed : double<BR/>- DefaultLaunchAngle : double<BR/>- DefaultTimeStep : double</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#fff5cf">- SimulationSettings()<BR/><B>+ Instance : SimulationSettings</B></TD></TR>
+    </TABLE>
+  >];
+
+  note [shape=note, style="filled", fillcolor="#fff9df", color="#8d8152", fontname="DejaVu Sans", fontsize=10,
+        label="Конструктор закрыт. Экземпляр создаётся лениво
+при первом обращении к Instance. Lazy<T>
+отвечает за потокобезопасную инициализацию
+и исключает создание нескольких экземпляров."];
+
+  builder [shape=plain, label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#333333">
+      <TR><TD BGCOLOR="#eef2f7"><B>TrajectoryBuilder</B></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#eef2f7">+ Reset() : TrajectoryBuilder<BR/>+ SetInitialSpeed(...) : TrajectoryBuilder<BR/>+ Build() : Trajectory</TD></TR>
+    </TABLE>
+  >];
+  program [shape=plain, label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#333333">
+      <TR><TD BGCOLOR="#eef2f7"><B>Program</B></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#eef2f7">+ Main() : void</TD></TR>
+    </TABLE>
+  >];
+
+  {rank=same; settings; note}
+  {rank=same; builder; program}
+
+  settings -> builder [style=invis];
+  settings -> program [style=invis];
+  builder -> settings [style=dashed, dir=back, constraint=false, label="Instance"];
+  program -> settings [style=dashed, dir=back, constraint=false, label="Instance"];
+  settings -> note [style=dashed, arrowhead=none, color="#a18e36"];
+}

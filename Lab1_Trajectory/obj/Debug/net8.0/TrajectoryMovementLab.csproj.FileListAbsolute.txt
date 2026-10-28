@@ -1,0 +1,14 @@
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\bin\Debug\net8.0\TrajectoryMovementLab.exe
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\bin\Debug\net8.0\TrajectoryMovementLab.deps.json
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\bin\Debug\net8.0\TrajectoryMovementLab.runtimeconfig.json
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\bin\Debug\net8.0\TrajectoryMovementLab.dll
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\bin\Debug\net8.0\TrajectoryMovementLab.pdb
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\obj\Debug\net8.0\TrajectoryMovementLab.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\obj\Debug\net8.0\TrajectoryMovementLab.AssemblyInfoInputs.cache
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\obj\Debug\net8.0\TrajectoryMovementLab.AssemblyInfo.cs
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\obj\Debug\net8.0\TrajectoryMovementLab.csproj.CoreCompileInputs.cache
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\obj\Debug\net8.0\TrajectoryMovementLab.dll
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\obj\Debug\net8.0\refint\TrajectoryMovementLab.dll
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\obj\Debug\net8.0\TrajectoryMovementLab.pdb
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\obj\Debug\net8.0\TrajectoryMovementLab.genruntimeconfig.cache
+C:\Users\Виктор\Desktop\TrajectoryMovementLab\obj\Debug\net8.0\ref\TrajectoryMovementLab.dll

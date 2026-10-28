@@ -1,0 +1,18 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrajectoryMovementLab", "TrajectoryMovementLab.csproj", "{F5D5F94C-A2A8-4DC0-9C18-C7A1D3B2F1EA}"
+EndProject
+Global
+    GlobalSection(SolutionConfigurationPlatforms) = preSolution
+        Debug|Any CPU = Debug|Any CPU
+        Release|Any CPU = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(ProjectConfigurationPlatforms) = postSolution
+        {F5D5F94C-A2A8-4DC0-9C18-C7A1D3B2F1EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {F5D5F94C-A2A8-4DC0-9C18-C7A1D3B2F1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {F5D5F94C-A2A8-4DC0-9C18-C7A1D3B2F1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {F5D5F94C-A2A8-4DC0-9C18-C7A1D3B2F1EA}.Release|Any CPU.Build.0 = Release|Any CPU
+    EndGlobalSection
+EndGlobal

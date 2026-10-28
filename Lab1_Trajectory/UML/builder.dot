@@ -1,0 +1,77 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", pad=0.25, nodesep=0.45, ranksep=0.72, splines=ortho];
+  node [fontname="DejaVu Sans", fontsize=11, color="#3a3a3a"];
+  edge [fontname="DejaVu Sans", fontsize=9, color="#4b4b4b", arrowsize=0.7];
+
+  client [shape=plain, label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#333333">
+      <TR><TD BGCOLOR="#eef2f7"><FONT POINT-SIZE="10">«Client»</FONT><BR/><B>Program</B></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#eef2f7">+ Main() : void</TD></TR>
+    </TABLE>
+  >];
+
+  director [shape=plain, label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#333333">
+      <TR><TD BGCOLOR="#fff5cf"><FONT POINT-SIZE="10">«Director»</FONT><BR/><B>TrajectoryScenarioDirector</B></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#fff5cf">- builder : TrajectoryBuilder</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#fff5cf">+ Construct(preset) : Trajectory<BR/>- BuildStandard() : void<BR/>- BuildFromPlatform() : void<BR/>- BuildHighSpeed() : void</TD></TR>
+    </TABLE>
+  >];
+
+  builder [shape=plain, label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#333333">
+      <TR><TD BGCOLOR="#fff5cf"><FONT POINT-SIZE="10">«Builder»</FONT><BR/><B>TrajectoryBuilder</B></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#fff5cf">- startX : double<BR/>- startY : double<BR/>- initialSpeed : double<BR/>- launchAngleDegrees : double<BR/>- gravity : double<BR/>- timeStep : double</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#fff5cf">+ Reset() : TrajectoryBuilder<BR/>+ SetStartPosition(x, y) : TrajectoryBuilder<BR/>+ SetInitialSpeed(speed) : TrajectoryBuilder<BR/>+ SetLaunchAngle(degrees) : TrajectoryBuilder<BR/>+ SetGravity(gravity) : TrajectoryBuilder<BR/>+ SetTimeStep(step) : TrajectoryBuilder<BR/>+ Build() : Trajectory</TD></TR>
+    </TABLE>
+  >];
+
+  product [shape=plain, label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#333333">
+      <TR><TD BGCOLOR="#fff5cf"><FONT POINT-SIZE="10">«Product»</FONT><BR/><B>Trajectory</B></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#fff5cf">- StartX : double<BR/>- StartY : double<BR/>- InitialSpeed : double<BR/>- LaunchAngleDegrees : double<BR/>- Gravity : double<BR/>- TimeStep : double</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#fff5cf">+ GetFlightTime() : double<BR/>+ GetMaximumHeight() : double<BR/>+ GetRange() : double<BR/>+ CalculatePoints() : IReadOnlyList&lt;TrajectoryPoint&gt;</TD></TR>
+    </TABLE>
+  >];
+
+  preset [shape=plain, label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#333333">
+      <TR><TD BGCOLOR="#eef2f7"><FONT POINT-SIZE="10">«enumeration»</FONT><BR/><B>TrajectoryPreset</B></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#eef2f7">STANDARD<BR/>FROM_PLATFORM<BR/>HIGH_SPEED</TD></TR>
+    </TABLE>
+  >];
+  point [shape=plain, label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#333333">
+      <TR><TD BGCOLOR="#eef2f7"><B>TrajectoryPoint</B></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#eef2f7">+ Time : double<BR/>+ X : double<BR/>+ Y : double<BR/>+ VerticalVelocity : double</TD></TR>
+    </TABLE>
+  >];
+  exception [shape=plain, label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#333333">
+      <TR><TD BGCOLOR="#eef2f7"><B>TrajectoryValidationException</B></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#eef2f7">+ Errors : IReadOnlyList&lt;string&gt;</TD></TR>
+    </TABLE>
+  >];
+  settings [shape=plain, label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#333333">
+      <TR><TD BGCOLOR="#eef2f7"><B>SimulationSettings</B></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#eef2f7">+ Instance : SimulationSettings<BR/>+ DefaultGravity : double<BR/>+ DefaultTimeStep : double</TD></TR>
+    </TABLE>
+  >];
+
+  note [shape=note, style="filled", fillcolor="#fff9df", color="#8d8152", fontname="DejaVu Sans", fontsize=10,
+        label="Строитель отделяет настройку объекта\nот его создания. Каждый метод возвращает\nтот же экземпляр builder, а Build() выполняет\nпроверки и только затем создаёт Trajectory."];
+
+  {rank=same; director; builder; product}
+  {rank=same; preset; exception; point; settings}
+
+  client -> director [style=dashed, label="use"];
+  client -> builder [style=dashed, label="use"];
+  director -> builder [arrowhead=odiamond, label="builder"];
+  director -> preset [style=dashed, label="uses"];
+  builder -> product [style=dashed, label="create"];
+  builder -> exception [style=dashed, label="throws"];
+  product -> point [arrowhead=vee, label="produces"];
+  builder -> settings [style=dashed, label="defaults"];
+  builder -> note [style=dashed, arrowhead=none, color="#a18e36"];
+}
