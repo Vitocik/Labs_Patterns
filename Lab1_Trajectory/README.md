@@ -78,7 +78,7 @@
 | Director | TrajectoryScenarioDirector | создание заранее определённых сценариев   |
 | Client   | Program                    | вызывает builder и использует результат   |
 
-![Иллюстрация](assets/lab1/media/image2.png)
+![Иллюстрация](UML/builder_final.png)
 
 *Рисунок 2 — Диаграмма классов паттерна «Строитель»*
 
