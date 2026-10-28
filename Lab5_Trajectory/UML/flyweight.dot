@@ -1,0 +1,13 @@
+digraph Flyweight {
+graph [bgcolor="white", pad="0.18", nodesep="0.32", ranksep="0.48", splines=ortho];
+node [shape=plain, fontname="DejaVu Sans", fontsize=10];
+edge [fontname="DejaVu Sans", fontsize=9, color="#333333", arrowsize=0.75];
+label="Паттерн «Приспособленец» (Flyweight)"; labelloc=t; fontsize=14; fontname="DejaVu Sans";
+Factory [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#E6E6E6"><B>TrajectoryStyleFactory</B></TD></TR><TR><TD ALIGN="LEFT">- cache: Dictionary&lt;key, TrajectoryStyle&gt;</TD></TR><TR><TD ALIGN="LEFT">+ GetStyle(key)</TD></TR><TR><TD ALIGN="LEFT">Возвращает общий объект по ключу</TD></TR></TABLE>>];
+Style [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#D9EAD3"><B>&lt;&lt;Flyweight&gt;&gt; TrajectoryStyle</B></TD></TR><TR><TD ALIGN="LEFT">+ Key, Symbol, Label, ColorName</TD></TR><TR><TD ALIGN="LEFT">Неизменяемое внутреннее состояние</TD></TR></TABLE>>];
+Renderer [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#F4F4F4"><B>TrajectoryRenderer</B></TD></TR><TR><TD ALIGN="LEFT">+ DisplaySamples(result, style)</TD></TR><TR><TD ALIGN="LEFT">Комбинирует общий стиль и внешние данные</TD></TR></TABLE>>];
+Point [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#F4F4F4"><B>TrajectoryPoint</B></TD></TR><TR><TD ALIGN="LEFT">+ TimeSeconds, X, Y</TD></TR><TR><TD ALIGN="LEFT">Внешнее состояние конкретной точки</TD></TR></TABLE>>];
+Result [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#F4F4F4"><B>TrajectoryResult</B></TD></TR><TR><TD ALIGN="LEFT">Scenario + показатели + Points</TD></TR></TABLE>>];
+Factory -> Style [label="создаёт/кэширует"]; Renderer -> Style [label="повторно использует"]; Renderer -> Result [label="получает"]; Result -> Point [arrowhead=odiamond, label="содержит 1..*"];
+{rank=same; Style; Result;}
+}

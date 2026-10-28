@@ -1,0 +1,14 @@
+digraph Facade {
+graph [bgcolor="white", pad="0.18", nodesep="0.32", ranksep="0.48", splines=ortho];
+node [shape=plain, fontname="DejaVu Sans", fontsize=10];
+edge [fontname="DejaVu Sans", fontsize=9, color="#333333", arrowsize=0.75];
+label="Паттерн «Фасад» (Facade)"; labelloc=t; fontsize=14; fontname="DejaVu Sans";
+Client [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#E6E6E6"><B>Program (Client)</B></TD></TR><TR><TD ALIGN="LEFT">RunStandardComparison()</TD></TR></TABLE>>];
+Facade [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#D9EAD3"><B>&lt;&lt;Facade&gt;&gt; TrajectoryAnalysisFacade</B></TD></TR><TR><TD ALIGN="LEFT">+ RunStandardComparison()</TD></TR><TR><TD ALIGN="LEFT">Оркестрирует проверку, расчёт, стили и вывод</TD></TR></TABLE>>];
+Validator [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#F4F4F4"><B>TrajectoryValidator</B></TD></TR><TR><TD ALIGN="LEFT">Проверяет параметры сценария</TD></TR></TABLE>>];
+Calc [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#F4F4F4"><B>TrajectoryCalculator</B></TD></TR><TR><TD ALIGN="LEFT">Рассчитывает время, высоту, дальность и точки</TD></TR></TABLE>>];
+Factory [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#F4F4F4"><B>TrajectoryStyleFactory</B></TD></TR><TR><TD ALIGN="LEFT">Получает кэшированные стили</TD></TR></TABLE>>];
+Renderer [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#F4F4F4"><B>TrajectoryRenderer</B></TD></TR><TR><TD ALIGN="LEFT">Печатает сводку и координаты</TD></TR></TABLE>>];
+Client -> Facade [label="один вызов"]; Facade -> Validator [label="проверяет"]; Facade -> Calc [label="рассчитывает"]; Facade -> Factory [label="получает стиль"]; Facade -> Renderer [label="передаёт результат"];
+{rank=same; Validator; Calc; Factory; Renderer;}
+}
