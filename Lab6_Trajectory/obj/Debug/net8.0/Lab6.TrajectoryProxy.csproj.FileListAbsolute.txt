@@ -1,0 +1,14 @@
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\bin\Debug\net8.0\Lab6.TrajectoryProxy.exe
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\bin\Debug\net8.0\Lab6.TrajectoryProxy.deps.json
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\bin\Debug\net8.0\Lab6.TrajectoryProxy.runtimeconfig.json
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\bin\Debug\net8.0\Lab6.TrajectoryProxy.dll
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\bin\Debug\net8.0\Lab6.TrajectoryProxy.pdb
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\obj\Debug\net8.0\Lab6.TrajectoryProxy.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\obj\Debug\net8.0\Lab6.TrajectoryProxy.AssemblyInfoInputs.cache
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\obj\Debug\net8.0\Lab6.TrajectoryProxy.AssemblyInfo.cs
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\obj\Debug\net8.0\Lab6.TrajectoryProxy.csproj.CoreCompileInputs.cache
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\obj\Debug\net8.0\Lab6.TrajectoryProxy.dll
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\obj\Debug\net8.0\refint\Lab6.TrajectoryProxy.dll
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\obj\Debug\net8.0\Lab6.TrajectoryProxy.pdb
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\obj\Debug\net8.0\Lab6.TrajectoryProxy.genruntimeconfig.cache
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab6_Trajectory_Proxy\obj\Debug\net8.0\ref\Lab6.TrajectoryProxy.dll
