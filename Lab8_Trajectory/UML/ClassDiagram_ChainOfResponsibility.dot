@@ -1,0 +1,29 @@
+
+digraph G {
+ graph [rankdir=TB, bgcolor="white", pad="0.25", nodesep="0.48", ranksep="0.72", splines=ortho, fontname="DejaVu Sans", label="Диаграмма классов паттерна «Цепочка обязанностей»", labelloc=t, fontsize=18];
+ node [shape=plain, fontname="DejaVu Sans", fontsize=10]; edge [fontname="DejaVu Sans", fontsize=8, color="#334155", arrowsize=0.8];
+ Program [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#DCE8F5"><B>Program (Client)</B></TD></TR><TR><TD ALIGN="LEFT">Передаёт параметры сценарию</TD></TR></TABLE> >];
+ Validated [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#E5F2E8"><B>ValidatedTrajectoryService</B></TD></TR><TR><TD ALIGN="LEFT">- _pipeline: TrajectoryValidationPipeline</TD></TR><TR><TD ALIGN="LEFT">- _calculationService: ITrajectoryService</TD></TR><TR><TD ALIGN="LEFT">+ Calculate(parameters)</TD></TR></TABLE> >];
+ Pipeline [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#E9E1F5"><B>TrajectoryValidationPipeline</B></TD></TR><TR><TD ALIGN="LEFT">- _first: TrajectoryValidationHandler</TD></TR><TR><TD ALIGN="LEFT">+ Validate(parameters)</TD></TR></TABLE> >];
+ Base [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#FFF0CC"><I>&lt;&lt;abstract&gt;&gt;</I> <B>TrajectoryValidationHandler</B></TD></TR><TR><TD ALIGN="LEFT">- _next: TrajectoryValidationHandler</TD></TR><TR><TD ALIGN="LEFT">+ SetNext(next)</TD></TR><TR><TD ALIGN="LEFT">+ Handle(parameters)</TD></TR><TR><TD ALIGN="LEFT"># ValidateCurrent(parameters)</TD></TR></TABLE> >];
+ H1 [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#EAF0F7"><B>ScenarioDataHandler</B></TD></TR><TR><TD ALIGN="LEFT">Проверка наличия и конечности значений</TD></TR></TABLE> >];
+ H2 [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#EAF0F7"><B>PhysicalMovementHandler</B></TD></TR><TR><TD ALIGN="LEFT">Проверка физических ограничений</TD></TR></TABLE> >];
+ H3 [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#EAF0F7"><B>TrajectorySamplingHandler</B></TD></TR><TR><TD ALIGN="LEFT">Проверка шага и числа точек</TD></TR></TABLE> >];
+ Result [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#F1F5F9"><B>TrajectoryValidationResult</B></TD></TR><TR><TD ALIGN="LEFT">IsValid, FailedHandler, Message, PassedHandlers</TD></TR></TABLE> >];
+ Service [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#EAF0F7"><I>&lt;&lt;interface&gt;&gt;</I> <B>ITrajectoryService</B></TD></TR><TR><TD ALIGN="LEFT">+ Calculate(parameters): TrajectoryResult</TD></TR></TABLE> >];
+ Real [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#E5F2E8"><B>RealTrajectoryService</B></TD></TR><TR><TD ALIGN="LEFT">Вычисляет характеристики и точки</TD></TR></TABLE> >];
+ Program -> Validated [label="вызывает"];
+ Validated -> Pipeline [label="передаёт параметры"];
+ Pipeline -> Base [label="запускает первый этап"];
+ H1 -> Base [style=dashed, arrowhead=empty, label="наследует"];
+ H2 -> Base [style=dashed, arrowhead=empty, label="наследует"];
+ H3 -> Base [style=dashed, arrowhead=empty, label="наследует"];
+ H1 -> H2 [label="успех: следующий"];
+ H2 -> H3 [label="успех: следующий"];
+ H1 -> Result [style=dotted, label="отказ / успех"];
+ H2 -> Result [style=dotted]; H3 -> Result [style=dotted];
+ Validated -> Service [label="после валидации"];
+ Real -> Service [style=dashed, arrowhead=empty, label="реализует"];
+ {rank=same; H1; H2; H3;}
+ {rank=same; Result; Service; Real;}
+}
