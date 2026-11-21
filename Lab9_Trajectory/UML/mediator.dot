@@ -1,0 +1,77 @@
+digraph MediatorPattern {
+  graph [rankdir=LR, bgcolor="white", pad="0.25", nodesep="0.45", ranksep="0.75", splines=ortho,
+         labelloc="t", label="Паттерн «Посредник» — координация компонентов приложения «Траектория движения»",
+         fontsize=22, fontname="DejaVu Sans"];
+  node [shape=plain, fontname="DejaVu Sans", fontsize=12];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#4b5563", arrowsize=0.8];
+
+  Program [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#374151">
+      <TR><TD BGCOLOR="#dbeafe"><B>Program</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Клиент: запускает сценарий<br/>и обращается к коллегам</TD></TR>
+    </TABLE>>];
+  Interface [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#1d4ed8">
+      <TR><TD BGCOLOR="#bfdbfe"><B>&lt;&lt;interface&gt;&gt;<BR/>ITrajectoryMediator</B></TD></TR>
+      <TR><TD ALIGN="LEFT">ParametersSubmitted()<BR/>CalculationRequested()<BR/>SnapshotSaveRequested()<BR/>SnapshotRestoreRequested()</TD></TR>
+    </TABLE>>];
+  Concrete [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#1d4ed8">
+      <TR><TD BGCOLOR="#93c5fd"><B>TrajectoryMediator</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Координирует коллег<BR/>и управляет сценарием</TD></TR>
+      <TR><TD ALIGN="LEFT">- TrajectorySession<BR/>- TrajectoryHistory<BR/>- CalculationEngine</TD></TR>
+    </TABLE>>];
+  Input [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#374151">
+      <TR><TD BGCOLOR="#f3f4f6"><B>TrajectoryInput</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Отправляет параметры<BR/>и запрос расчёта</TD></TR>
+    </TABLE>>];
+  HistoryPanel [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#374151">
+      <TR><TD BGCOLOR="#f3f4f6"><B>TrajectoryHistoryPanel</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Команды сохранения,<BR/>восстановления и просмотра</TD></TR>
+    </TABLE>>];
+  Engine [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#374151">
+      <TR><TD BGCOLOR="#f3f4f6"><B>TrajectoryCalculationEngine</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Вычисляет время, высоту,<BR/>дальность и точки пути</TD></TR>
+    </TABLE>>];
+  View [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#374151">
+      <TR><TD BGCOLOR="#f3f4f6"><B>TrajectoryResultView</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Показывает сводку результата<BR/>и сообщения истории</TD></TR>
+    </TABLE>>];
+  Program -> Concrete [label="создаёт"];
+  Concrete -> Interface [arrowhead=empty, style=dashed, label="реализует"];
+  Input -> Interface [arrowhead=none, label="уведомляет"];
+  HistoryPanel -> Interface [arrowhead=none, label="уведомляет"];
+  Concrete -> Input [dir=both, arrowtail=none, label="координирует"];
+  Concrete -> HistoryPanel [dir=both, arrowtail=none];
+  Concrete -> Engine [label="запускает"];
+  Concrete -> View [label="передаёт данные"];
+
+  subgraph cluster_memento {
+    label="Связь посредника с паттерном «Снимок»";
+    color="#9ca3af"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=13;
+    Session [label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#047857">
+        <TR><TD BGCOLOR="#d1fae5"><B>TrajectorySession</B><BR/>(Originator)</TD></TR>
+        <TR><TD ALIGN="LEFT">Текущие параметры<BR/>и результат расчёта</TD></TR>
+        <TR><TD ALIGN="LEFT">CreateMemento()<BR/>RestoreMemento()</TD></TR>
+      </TABLE>>];
+    Memento [label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#047857">
+        <TR><TD BGCOLOR="#a7f3d0"><B>TrajectoryMemento</B></TD></TR>
+        <TR><TD ALIGN="LEFT">Неизменяемый снимок:<BR/>параметры + результат</TD></TR>
+      </TABLE>>];
+    Caretaker [label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#047857">
+        <TR><TD BGCOLOR="#d1fae5"><B>TrajectoryHistory</B><BR/>(Caretaker)</TD></TR>
+        <TR><TD ALIGN="LEFT">Хранит список снимков<BR/>и выдаёт их по номеру</TD></TR>
+      </TABLE>>];
+    Session -> Memento [label="создаёт / восстанавливает"];
+    Caretaker -> Memento [dir=both, label="хранит 0..*"];
+  }
+  Concrete -> Session [dir=both, label="управляет"];
+  Concrete -> Caretaker [dir=both, label="сохраняет / получает"];
+}

@@ -1,0 +1,34 @@
+digraph MementoPattern {
+  graph [rankdir=LR, bgcolor="white", pad="0.25", nodesep="0.6", ranksep="0.8", splines=ortho,
+         labelloc="t", label="Паттерн «Снимок» — сохранение и восстановление состояния расчёта",
+         fontsize=22, fontname="DejaVu Sans"];
+  node [shape=plain, fontname="DejaVu Sans", fontsize=13];
+  edge [fontname="DejaVu Sans", fontsize=11, color="#4b5563", arrowsize=0.85];
+  Originator [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="10" COLOR="#047857">
+      <TR><TD BGCOLOR="#d1fae5"><B>TrajectorySession</B><BR/>(Originator)</TD></TR>
+      <TR><TD ALIGN="LEFT">- Parameters<BR/>- Result</TD></TR>
+      <TR><TD ALIGN="LEFT">+ CreateMemento()<BR/>+ RestoreMemento(memento)</TD></TR>
+    </TABLE>>];
+  Memento [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="10" COLOR="#047857">
+      <TR><TD BGCOLOR="#a7f3d0"><B>TrajectoryMemento</B></TD></TR>
+      <TR><TD ALIGN="LEFT">- Parameters (private)<BR/>- Result (private)<BR/>+ SavedAt<BR/>+ Description</TD></TR>
+      <TR><TD ALIGN="LEFT">Неизменяемое состояние</TD></TR>
+    </TABLE>>];
+  Caretaker [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="10" COLOR="#047857">
+      <TR><TD BGCOLOR="#d1fae5"><B>TrajectoryHistory</B><BR/>(Caretaker)</TD></TR>
+      <TR><TD ALIGN="LEFT">- snapshots: List&lt;TrajectoryMemento&gt;</TD></TR>
+      <TR><TD ALIGN="LEFT">+ Save(memento)<BR/>+ Get(number)<BR/>+ DescribeAll()</TD></TR>
+    </TABLE>>];
+  User [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="10" COLOR="#374151">
+      <TR><TD BGCOLOR="#f3f4f6"><B>TrajectoryMediator</B><BR/>(Client)</TD></TR>
+      <TR><TD ALIGN="LEFT">Запрашивает сохранение<BR/>и восстановление</TD></TR>
+    </TABLE>>];
+  Originator -> Memento [label="создаёт снимок / читает данные"];
+  Caretaker -> Memento [dir=both, label="хранит 0..*"];
+  User -> Originator [label="команда сохранить / восстановить"];
+  User -> Caretaker [label="передаёт на хранение / получает"];
+}
