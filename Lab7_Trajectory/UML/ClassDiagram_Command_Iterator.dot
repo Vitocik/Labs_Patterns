@@ -1,0 +1,27 @@
+
+digraph G {
+ graph [rankdir=TB, bgcolor="white", pad="0.25", nodesep="0.45", ranksep="0.75", splines=ortho, fontname="DejaVu Sans", label="Диаграмма классов: паттерны «Команда» и «Итератор»", labelloc=t, fontsize=18];
+ node [shape=plain, fontname="DejaVu Sans", fontsize=10]; edge [fontname="DejaVu Sans", fontsize=8, color="#334155", arrowsize=0.8];
+ Program [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#DCE8F5"><B>Program (Client)</B></TD></TR><TR><TD ALIGN="LEFT">Создаёт команды и запускает обход</TD></TR></TABLE> >];
+ Invoker [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#E9E1F5"><B>CommandInvoker</B></TD></TR><TR><TD ALIGN="LEFT">- _history: Stack&lt;ITrajectoryCommand&gt;</TD></TR><TR><TD ALIGN="LEFT">+ ExecuteCommand(command)</TD></TR><TR><TD ALIGN="LEFT">+ UndoLastCommand()</TD></TR></TABLE> >];
+ ICommand [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#FFF0CC"><I>&lt;&lt;interface&gt;&gt;</I> <B>ITrajectoryCommand</B></TD></TR><TR><TD ALIGN="LEFT">+ Execute()</TD></TR><TR><TD ALIGN="LEFT">+ Undo()</TD></TR></TABLE> >];
+ Concrete [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#E5F2E8"><B>CalculateTrajectoryCommand</B></TD></TR><TR><TD ALIGN="LEFT">- _service: ITrajectoryService</TD></TR><TR><TD ALIGN="LEFT">- _session: TrajectorySession</TD></TR><TR><TD ALIGN="LEFT">- _parameters: TrajectoryParameters</TD></TR><TR><TD ALIGN="LEFT">+ Execute() / Undo()</TD></TR></TABLE> >];
+ Session [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#EAF0F7"><B>TrajectorySession (Receiver)</B></TD></TR><TR><TD ALIGN="LEFT">- _results: List&lt;TrajectoryResult&gt;</TD></TR><TR><TD ALIGN="LEFT">+ Add(result) / Remove(result)</TD></TR></TABLE> >];
+ Service [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#EAF0F7"><I>&lt;&lt;interface&gt;&gt;</I> <B>ITrajectoryService</B></TD></TR><TR><TD ALIGN="LEFT">+ Calculate(parameters): TrajectoryResult</TD></TR></TABLE> >];
+ Path [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#FFF0CC"><B>TrajectoryPath (Aggregate)</B></TD></TR><TR><TD ALIGN="LEFT">Implements IEnumerable&lt;TrajectoryPoint&gt;</TD></TR><TR><TD ALIGN="LEFT">+ GetEnumerator()</TD></TR></TABLE> >];
+ Iterator [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#E5F2E8"><B>TrajectoryPointIterator</B></TD></TR><TR><TD ALIGN="LEFT">- _points: IReadOnlyList&lt;TrajectoryPoint&gt;</TD></TR><TR><TD ALIGN="LEFT">+ MoveNext() / Current / Reset()</TD></TR></TABLE> >];
+ Point [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#F1F5F9"><B>TrajectoryPoint</B></TD></TR><TR><TD ALIGN="LEFT">TimeSeconds, X, Y</TD></TR></TABLE> >];
+ Result [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6"><TR><TD BGCOLOR="#F1F5F9"><B>TrajectoryResult</B></TD></TR><TR><TD ALIGN="LEFT">FlightTime, MaxHeight, Range, Points</TD></TR></TABLE> >];
+ Program -> Invoker [label="использует"];
+ Invoker -> ICommand [label="хранит стек"];
+ Concrete -> ICommand [style=dashed, arrowhead=empty, label="реализует"];
+ Concrete -> Service [label="вызывает расчёт"];
+ Concrete -> Session [label="изменяет сессию"];
+ Concrete -> Result [label="сохраняет"];
+ Program -> Path [label="создаёт для обхода"];
+ Path -> Iterator [label="создаёт"];
+ Iterator -> Point [label="перебирает"];
+ Result -> Point [label="содержит 1..*"];
+ {rank=same; Invoker; ICommand; Concrete;}
+ {rank=same; Session; Service; Path;}
+}

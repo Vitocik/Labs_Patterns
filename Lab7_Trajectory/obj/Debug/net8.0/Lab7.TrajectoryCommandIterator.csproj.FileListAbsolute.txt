@@ -1,0 +1,14 @@
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\bin\Debug\net8.0\Lab7.TrajectoryCommandIterator.exe
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\bin\Debug\net8.0\Lab7.TrajectoryCommandIterator.deps.json
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\bin\Debug\net8.0\Lab7.TrajectoryCommandIterator.runtimeconfig.json
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\bin\Debug\net8.0\Lab7.TrajectoryCommandIterator.dll
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\bin\Debug\net8.0\Lab7.TrajectoryCommandIterator.pdb
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\obj\Debug\net8.0\Lab7.TrajectoryCommandIterator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\obj\Debug\net8.0\Lab7.TrajectoryCommandIterator.AssemblyInfoInputs.cache
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\obj\Debug\net8.0\Lab7.TrajectoryCommandIterator.AssemblyInfo.cs
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\obj\Debug\net8.0\Lab7.TrajectoryCommandIterator.csproj.CoreCompileInputs.cache
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\obj\Debug\net8.0\Lab7.TrajectoryCommandIterator.dll
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\obj\Debug\net8.0\refint\Lab7.TrajectoryCommandIterator.dll
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\obj\Debug\net8.0\Lab7.TrajectoryCommandIterator.pdb
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\obj\Debug\net8.0\Lab7.TrajectoryCommandIterator.genruntimeconfig.cache
+C:\Users\Виктор\Desktop\4_kyrs\Паттерны проектирования\Лабы\Lab7_Trajectory_CommandIterator\obj\Debug\net8.0\ref\Lab7.TrajectoryCommandIterator.dll
