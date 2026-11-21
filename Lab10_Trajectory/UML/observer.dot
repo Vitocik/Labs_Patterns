@@ -1,0 +1,44 @@
+digraph ObserverPattern {
+  graph [rankdir=LR, bgcolor="white", pad="0.25", nodesep="0.55", ranksep="0.8", splines=ortho,
+         labelloc="t", label="Паттерн «Наблюдатель» — рассылка событий сессии расчёта",
+         fontsize=22, fontname="DejaVu Sans"];
+  node [shape=plain, fontname="DejaVu Sans", fontsize=12];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#4b5563", arrowsize=0.8];
+  Subject [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="9" COLOR="#1d4ed8">
+      <TR><TD BGCOLOR="#bfdbfe"><B>TrajectorySession</B><BR/>(Subject)</TD></TR>
+      <TR><TD ALIGN="LEFT">- observers: List&lt;ITrajectoryObserver&gt;<BR/>- state, parameters, result</TD></TR>
+      <TR><TD ALIGN="LEFT">+ Attach(observer)<BR/>+ Detach(observer)<BR/>+ Publish(event)</TD></TR>
+    </TABLE>>];
+  Observer [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="9" COLOR="#1d4ed8">
+      <TR><TD BGCOLOR="#dbeafe"><B>&lt;&lt;interface&gt;&gt;<BR/>ITrajectoryObserver</B></TD></TR>
+      <TR><TD ALIGN="LEFT">+ Update(notification)</TD></TR>
+    </TABLE>>];
+  Console [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="9" COLOR="#374151">
+      <TR><TD BGCOLOR="#f3f4f6"><B>ConsoleTrajectoryObserver</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Выводит изменения состояния</TD></TR>
+    </TABLE>>];
+  Audit [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="9" COLOR="#374151">
+      <TR><TD BGCOLOR="#f3f4f6"><B>TrajectoryAuditObserver</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Записывает историю событий</TD></TR>
+    </TABLE>>];
+  Range [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="9" COLOR="#374151">
+      <TR><TD BGCOLOR="#f3f4f6"><B>LongRangeObserver</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Контролирует порог дальности</TD></TR>
+    </TABLE>>];
+  Event [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="9" COLOR="#047857">
+      <TR><TD BGCOLOR="#d1fae5"><B>TrajectoryEvent</B></TD></TR>
+      <TR><TD ALIGN="LEFT">Тип события, состояние,<BR/>сообщение, параметры, результат</TD></TR>
+    </TABLE>>];
+  Subject -> Observer [dir=both, label="подписка 0..*", arrowtail=odiamond];
+  Console -> Observer [arrowhead=empty, style=dashed, label="реализует"];
+  Audit -> Observer [arrowhead=empty, style=dashed];
+  Range -> Observer [arrowhead=empty, style=dashed];
+  Subject -> Event [label="создаёт и рассылает"];
+  Observer -> Event [style=dashed, label="получает"];
+}

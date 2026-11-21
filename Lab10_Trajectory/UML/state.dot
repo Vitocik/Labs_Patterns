@@ -1,0 +1,38 @@
+digraph StatePattern {
+  graph [rankdir=LR, bgcolor="white", pad="0.25", nodesep="0.48", ranksep="0.72", splines=ortho,
+         labelloc="t", label="Паттерн «Состояние» — состояния жизненного цикла расчёта траектории",
+         fontsize=22, fontname="DejaVu Sans"];
+  node [shape=plain, fontname="DejaVu Sans", fontsize=11];
+  edge [fontname="DejaVu Sans", fontsize=9, color="#4b5563", arrowsize=0.8];
+  Context [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="9" COLOR="#1d4ed8">
+      <TR><TD BGCOLOR="#bfdbfe"><B>TrajectorySession</B><BR/>(Context)</TD></TR>
+      <TR><TD ALIGN="LEFT">- state: TrajectoryState<BR/>- parameters, result</TD></TR>
+      <TR><TD ALIGN="LEFT">+ Configure()<BR/>+ Calculate()<BR/>+ Reset()</TD></TR>
+    </TABLE>>];
+  State [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="9" COLOR="#1d4ed8">
+      <TR><TD BGCOLOR="#dbeafe"><B>TrajectoryState</B><BR/>(abstract)</TD></TR>
+      <TR><TD ALIGN="LEFT">+ Configure()<BR/>+ Start()<BR/>+ Complete()<BR/>+ Fail()<BR/>+ Reset()</TD></TR>
+    </TABLE>>];
+  Draft [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7"><TR><TD BGCOLOR="#f3f4f6"><B>DraftState</B></TD></TR><TR><TD>Настройка параметров</TD></TR></TABLE> >];
+  Ready [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7"><TR><TD BGCOLOR="#f3f4f6"><B>ReadyState</B></TD></TR><TR><TD>Ожидание запуска</TD></TR></TABLE> >];
+  Calculating [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7"><TR><TD BGCOLOR="#fef3c7"><B>CalculatingState</B></TD></TR><TR><TD>Выполнение расчёта</TD></TR></TABLE> >];
+  Completed [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7"><TR><TD BGCOLOR="#d1fae5"><B>CompletedState</B></TD></TR><TR><TD>Результат получен</TD></TR></TABLE> >];
+  Failed [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7"><TR><TD BGCOLOR="#fee2e2"><B>FailedState</B></TD></TR><TR><TD>Обработка ошибки</TD></TR></TABLE> >];
+  Context -> State [label="делегирует операции"];
+  Draft -> State [arrowhead=empty, style=dashed];
+  Ready -> State [arrowhead=empty, style=dashed];
+  Calculating -> State [arrowhead=empty, style=dashed];
+  Completed -> State [arrowhead=empty, style=dashed];
+  Failed -> State [arrowhead=empty, style=dashed];
+  Draft -> Ready [label="Configure"];
+  Ready -> Calculating [label="Start"];
+  Calculating -> Completed [label="Complete"];
+  Calculating -> Failed [label="Fail"];
+  Completed -> Ready [label="Configure"];
+  Failed -> Ready [label="Configure"];
+  Ready -> Draft [label="Reset", constraint=false];
+  Completed -> Draft [label="Reset", constraint=false];
+  Failed -> Draft [label="Reset", constraint=false];
+}
